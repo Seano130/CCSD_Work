@@ -10,7 +10,7 @@ namespace AirlineSurveys2
 {
     public partial class Survey : System.Web.UI.Page
     {
-        MySqlConnection cnx;
+        private MySqlConnection cnx;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,7 +24,7 @@ namespace AirlineSurveys2
             catch (Exception ex)
             {
 
-                Response.Write("Error while opening the connection - Reason = ", ex.Message);
+                Console.Write("Error while opening the connection - Reason = ", ex.Message);
                 return;
 
             }
