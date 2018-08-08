@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Survey.aspx" />
+    <Content Include="Tutorial.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +91,13 @@
     </Compile>
     <Compile Include="Survey.aspx.designer.cs">
       <DependentUpon>Survey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutorial.aspx.cs">
+      <DependentUpon>Tutorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutorial.aspx.designer.cs">
+      <DependentUpon>Tutorial.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

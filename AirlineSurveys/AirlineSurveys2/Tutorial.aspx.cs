@@ -15,10 +15,26 @@ namespace AirlineSurveys2
             RadioButtonList lst = (RadioButtonList)sender;
             String criteria = lst.ID;
             String review = lst.SelectedItem.Text;
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            mSurveyData = (Review_Data)Session["survey"];
+            RadioBUttonList rbl = (RadioButtonList)sender;
+            String RadioButtonListID = rbl.ID;
+            int a = 0;
+            String selection = rbl.SelectedItem.Text;
+            Survey_Criteria criteria = StringToEnum(RadioButtonListID);
+            Qualifier q = StringToQualifier(selection);
+            try
+            {
+                mSurveyData.Add(criteria, q);
+            }
+            catch(Exception ex) {; }
+
+            Session["survey"] = mSurveyData;
+
             List<RadioButtonList> lst = new List<RadioButtonList>();
             lst.Add(R_cleanliness);
             lst.Add(R_friendly);
@@ -33,16 +49,10 @@ namespace AirlineSurveys2
                 lst[i].Items.Add("Fair");
                 lst[i].Items.Add("Good");
                 lst[i].Items.Add("Excellent");
-
                 lst[i].SelectedIndexChanged += new EventHandler(HandleClick);
 
-
-
             }
-
-
-
-
         }
     }
+
 }
