@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineSurveys2", "AirlineSurveys2\AirlineSurveys2.csproj", "{16AAC601-DF6F-4F8F-93C8-A07C32920D69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineSurveysVersion2", "AirlineSurveysVersion2\AirlineSurveysVersion2.csproj", "{ED19D1FB-0E27-4326-B77C-934A397F691C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{16AAC601-DF6F-4F8F-93C8-A07C32920D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16AAC601-DF6F-4F8F-93C8-A07C32920D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16AAC601-DF6F-4F8F-93C8-A07C32920D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16AAC601-DF6F-4F8F-93C8-A07C32920D69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED19D1FB-0E27-4326-B77C-934A397F691C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED19D1FB-0E27-4326-B77C-934A397F691C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED19D1FB-0E27-4326-B77C-934A397F691C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED19D1FB-0E27-4326-B77C-934A397F691C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0AEDD655-8E59-49E7-BDA9-4B5FE13F5E2E}
+		SolutionGuid = {A9B05C78-C9AC-49DC-8E23-C913A7A9C482}
 	EndGlobalSection
 EndGlobal
