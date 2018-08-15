@@ -8,6 +8,9 @@ namespace Chapter10
 {
     public abstract class Enemy
     {
+        // Abstract methods can only fit into abstract classes 
+        // Abstract methods do not have a body (no code associated with them)
+        //
         public abstract void Walk();
       
 
