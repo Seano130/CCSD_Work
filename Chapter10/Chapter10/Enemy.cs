@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Chapter10
 {
-    public class Enemy
+    public abstract class Enemy
     {
+        public abstract void Walk();
+      
+
         public virtual void Talk()
         {
             Console.WriteLine("Grunt");
