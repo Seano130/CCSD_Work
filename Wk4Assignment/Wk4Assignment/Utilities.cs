@@ -1,8 +1,8 @@
 ﻿public class Width
 {
-    private double value;
+    private double mValue;
 
-    public double mValue
+    public double Value
     {
         get { return mValue; }
         set { mValue = value; }
@@ -12,11 +12,11 @@
 }
 
 
-public class Width
+public class Height
 {
-    private double value;
+    private double mValue;
 
-    public double mValue
+    public double Value
     {
         get { return mValue; }
         set { mValue = value; }

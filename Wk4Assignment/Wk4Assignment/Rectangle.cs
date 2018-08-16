@@ -13,31 +13,32 @@ public class Rectangle : IShape {
 
     private double mHeight;
 
-    private void Rectangle() {
-        
+   
+
+
+    public Rectangle(double width, double height)
+    {
+        mWidth = width;
+        mHeight = height;
+
     }
 
-   
-    public void Rectangle(double width, double height) {
-       
-    }
 
-   
-    public double Area() {
-        
-        return 0.0D;
+    public double Area()
+    {
+        return mWidth * mHeight;
+
     }
 
  
-    public double Perimeter() {
-        
-        return 0.0D;
+    public double Perimeter()
+    {
+
+        return 2 * (mHeight + mWidth);
     }
 
-  
-    public String Type() {
-        
-        return null;
+    public String Type()
+    {
+        return "Rectangle";
     }
-
 }
