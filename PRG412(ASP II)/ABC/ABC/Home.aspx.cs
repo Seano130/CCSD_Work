@@ -7,48 +7,51 @@ using System.Web.UI.WebControls;
 
 public partial class Home : System.Web.UI.Page
 {
+    
    
     protected void Page_Load(object sender, EventArgs e)
     { // Phase A
         if(!IsPostBack)
         {
             btnLogin.Text = "Login";
-        }      
+        }
+       
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
     { // Phase B
-        // Handle all future button clicks
+      // Handle all future button clicks
 
-        if(Session["user"] == null) // nobody currently logged in
-        {
-            Session["user"] = tbUser.Text; // log them in
-        }
-        else
-        { // someone already logged in, so log them out
-            Session["user"] = null; // log them out
+        #region 
+        //if(Session["user"] == null) // nobody currently logged in
+        //{
+        //    Session["user"] = tbUser.Text; // log them in
+        //}
+        //else
+        //{ // someone already logged in, so log them out
+        //    Session["user"] = null; // log them out
+
+        //}
+        #endregion
 
 
-        }
 
 
 
+    }
+    protected void btnLogout_Click(object sender, EventArgs e)
+    {
 
-       //if(btnLogin.Text == "Login")
-       // {
-       //     if(tbUser.Text != "")
-       //     {
-       //         lblTitle.Text = "Welcome, " + tbUser.Text + "!";
-       //         btnLogin.Text = "Logout";
-       //     }                   
-       // }
-       //else
-       // {
-       //     lblTitle.Text = "Enter Username";
-       //     tbUser.Visible = true;
-       //     lblTitle.Text = "";
-       //     btnLogin.Text = "Login";
-       // }
+    }
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnSubtract_Click(object sender, EventArgs e)
+    {
+
     }
 
     protected void btnReload_Click(object sender, EventArgs e)
@@ -58,27 +61,46 @@ public partial class Home : System.Web.UI.Page
 
     protected void Page_PreRender(object sender, EventArgs e)
     { // Phase C
-        if(Session["user"] == null)
-        { // nobody logged in 
-            lblTitle.Text = "Enter Username: ";
-            tbUser.Visible = true;
-            btnLogin.Text = "Login";
+
+        #region
+        //if(Session["user"] == null)
+        //{ // nobody logged in 
+        //    lblTitle.Text = "Enter Username: ";
+        //    tbUser.Visible = true;
+
+        //    btnLogin.Text = "Login";
+
+        //    btnAdd.Visible = false;
+        //    btnSubtract.Visible = false;
+        //}
+        //else
+        //{ // someone already logged in
+        //    lblTitle.Text = "Hello " + (string)Session["user"];
+        //    tbUser.Visible = true;
+        //    btnLogin.Text = "Logout";
+
+        //    btnAdd.Visible = true;
+        //    btnSubtract.Visible = true;
+        //}
+        #endregion
+
+        if()
+        {
+            lblTitle.Text = "Please login";
         }
         else
-        { // someone already logged in
-            lblTitle.Text = "Hello " + (string)Session["user"];
-            tbUser.Visible = false;
-            btnLogin.Text = "Logout";
+        {
+            lblTitle.Text = "Hello Sean"; // <-- replace with actual user name
         }
 
 
 
-        //if(btnLogin.Text == "Logout")
-        //{
-        //    tbUser.Visible = false;
-        //}
     }
 
 
- 
+
+
+
+
+  
 }
