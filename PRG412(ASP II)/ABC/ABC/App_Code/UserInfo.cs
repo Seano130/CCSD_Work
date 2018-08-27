@@ -10,6 +10,5 @@ public class UserInfo
 {
     public string Username;
     public int Age;
-
    
 }
