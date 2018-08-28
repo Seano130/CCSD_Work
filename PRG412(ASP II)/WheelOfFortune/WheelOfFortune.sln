@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WheelOfFortune", "WheelOfFortune\", "{FE473FE9-437D-42E0-B0AD-667B7542175A}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58213"
+		Debug.AspNetCompiler.PhysicalPath = "WheelOfFortune\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58213\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58213"
+		Release.AspNetCompiler.PhysicalPath = "WheelOfFortune\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58213\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58213"
+		SlnRelativePath = "WheelOfFortune\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE473FE9-437D-42E0-B0AD-667B7542175A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE473FE9-437D-42E0-B0AD-667B7542175A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4ECD1C5-91B5-4DBF-A7EA-8C59218C534A}
+	EndGlobalSection
+EndGlobal
