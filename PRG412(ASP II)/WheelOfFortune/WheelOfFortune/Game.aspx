@@ -22,7 +22,7 @@
 &nbsp;<br />
             <br />
             <asp:Label ID="lblGuessChar" runat="server" Font-Size="Large" Text="Guess Character:    "></asp:Label>
-            <asp:TextBox ID="tbGuessChar" runat="server" Width="24px"></asp:TextBox>
+            <asp:TextBox ID="tbGuessChar" runat="server" Width="24px" AutoPostBack="True"></asp:TextBox>
 &nbsp;<asp:Button ID="btnGuess" runat="server" OnClick="btnGuess_Click" Text="Enter" />
             <br />
             <br />

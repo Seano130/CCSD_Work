@@ -9,6 +9,16 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     { //Phase A
+        if(!IsPostBack)
+        {
+            ddlDiff.Items.Add(""); // 1st item blank to prevent auto selection
+            ddlDiff.Items.Add("Easy");
+            ddlDiff.Items.Add("Medium");
+            ddlDiff.Items.Add("Hard");
+            ddlDiff.Items.Add("Nightmare");
+
+
+        }
 
     }
 

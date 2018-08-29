@@ -15,6 +15,14 @@
             <asp:TextBox ID="tbUser" runat="server" Height="17px" Width="231px"></asp:TextBox>
             <br />
             <br />
+            <br />
+            <asp:Label ID="lblDifficulty" runat="server" Text="Difficulty: "></asp:Label>
+&nbsp;
+            <asp:DropDownList ID="ddlDiff" runat="server" AutoPostBack="True" Height="20px" Width="159px">
+            </asp:DropDownList>
+            <br />
+            <br />
+            <br />
             <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click" Text="Login" />
         </div>
     </form>
