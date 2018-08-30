@@ -12,7 +12,7 @@
             <asp:Label ID="lblTitle" runat="server" Font-Size="Larger" Text="Please Enter Your Name: "></asp:Label>
             <br />
             <br />
-            <asp:TextBox ID="tbUser" runat="server" Height="17px" Width="231px"></asp:TextBox>
+            <asp:TextBox ID="tbUser" runat="server" Height="17px" Width="231px" AutoPostBack="True" OnTextChanged="tbUser_TextChanged"></asp:TextBox>
             <br />
             <br />
             <br />

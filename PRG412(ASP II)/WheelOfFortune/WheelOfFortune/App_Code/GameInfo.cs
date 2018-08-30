@@ -4,10 +4,7 @@ using System.Linq;
 using System.Web;
 
 
-public enum Level
-{
-    Easy, Medium, Hard, Hell
-}
+
 
 public class GameInfo
 {
