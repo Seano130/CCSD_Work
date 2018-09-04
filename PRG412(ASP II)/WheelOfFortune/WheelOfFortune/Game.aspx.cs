@@ -311,7 +311,7 @@ public partial class Game : System.Web.UI.Page
         }
         else if (gi.TriesRemaining <= 0 && count < gi.Hidden.Length)
         {
-            lblWelcome.Text = "Sorry, you lost! THe Word was: " + gi.Hidden;
+            lblWelcome.Text = "Sorry, you lost! The word was: " + gi.Hidden;
             btnGuess.Text = "Replay";
             Session["gameInfo"] = null; // remove game from session, cuz its over
 
