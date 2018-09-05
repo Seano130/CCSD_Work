@@ -43,10 +43,18 @@ namespace Paint1
            
             }
              // I see no one to attack, so go to my goal position
-                Vector point = Goal - Pos; // face my goal
+                Vector pointToGoal = Goal - Pos; // face my goal
+            double distToGoal = pointToGoal.Magnitude;
+            if (distToGoal > 10)
+            {
+                Vector point = Goal - Pos;
                 Vector unit = point.Unitized;
                 Vel = Speed * unit; // scale up velocity
-            
+            }
+            else
+            {
+                Vel = new Vector(0, 0);
+            }
             Vel = Vel + Acc * time; // calc my new Velocity
             Pos = Pos + Vel * time; // calc my new position in space 
         }

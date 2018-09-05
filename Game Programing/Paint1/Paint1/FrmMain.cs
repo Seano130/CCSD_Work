@@ -18,6 +18,7 @@ namespace Paint1
 
         protected Timer tmr;
         protected Shimada genji, hanzo;
+        protected List<Projectile> projectiles = new List<Projectile>();
         protected Direction dir = Direction.None;
         protected int WM_KEYUP = 0x0101;
         protected int WM_KEYDOWN = 0x0100;
@@ -77,11 +78,12 @@ namespace Paint1
             }
             genji.Move(0.1); // Have genji calculate his new position
             hanzo.Move(0.07); // Have hanzo calc his new position in space
+            foreach(Projectile p in projectiles)
+            { 
+                p.Move(0.1);
+            }
             this.Invalidate(); // repaint the game
         }
-
-        
-
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -100,6 +102,15 @@ namespace Paint1
             pic.TranslateTransform(-Properties.Resources.hanzo.Width / 2,
                 -Properties.Resources.hanzo.Height / 2); // back up slightly
             pic.DrawImage(Properties.Resources.hanzo, new Point());
+
+            foreach (Projectile p in projectiles)
+            {
+                pic.ResetTransform();
+                pic.TranslateTransform((float)p.Pos.X, (float)p.Pos.Y);
+                pic.RotateTransform((float)p.Angle);
+                pic.TranslateTransform(-p.Image.Width / 2, -p.Image.Height / 2);
+                pic.DrawImage(p.Image, new Point());
+            }
 
         }
 
@@ -139,8 +150,24 @@ namespace Paint1
 
         private void FrmMain_MouseUp(object sender, MouseEventArgs e)
         {
-            Vector goal = new Vector(e.X, e.Y); // set a vector pointing to the mouse click position
-            genji.Goal = goal; // make hanzo's goal be the same as te onscreen mouse click position
+            if (e.Button == MouseButtons.Left)
+            {
+                Vector goal = new Vector(e.X, e.Y); // set a vector pointing to the mouse click position
+                genji.Goal = goal; // make hanzo's goal be the same as te onscreen mouse click position
+            }
+            else if(e.Button == MouseButtons.Right)
+            { // insert shuriken launch code here...
+                Vector click = new Vector(e.X, e.Y);
+                Vector point = click - genji.Pos;
+                Vector unit = point.Unitized;
+                Vector pVel = new Vector(0, 0); // start velocity at zero (not moving)
+                Vector pPos = new Vector(genji.Pos.X, genji.Pos.Y);
+                Vector pAcc = 60 * unit; // have shuriken ACCELERATE instead
+                Projectile p = new Projectile(pPos, pVel, pAcc, 200, 50, Properties.Resources.shuriken);
+                projectiles.Add(p); 
+
+
+            }
         }
 
         private void btnTimer_Click(object sender, EventArgs e)

@@ -54,6 +54,7 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shimada.cs" />
     <Compile Include="Vector.cs" />
@@ -86,6 +87,7 @@
   <ItemGroup>
     <Content Include="Images\genji.png" />
     <Content Include="Images\hanzo.png" />
+    <Content Include="Images\shuriken.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
