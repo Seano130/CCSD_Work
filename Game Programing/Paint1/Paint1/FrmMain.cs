@@ -12,6 +12,10 @@ namespace Paint1
 {
     public partial class FrmMain : Form
     {
+
+        
+
+
         protected Timer tmr;
         protected Shimada genji, hanzo;
         protected Direction dir = Direction.None;
@@ -26,11 +30,15 @@ namespace Paint1
            | ControlStyles.UserPaint, true);
 
             UpdateStyles(); // reduces flicker for high FPS
-            genji = new Shimada(new Vector(800, 100), new Vector (0, 0), new Vector(0,0), new Vector(0, 0), 0, Properties.Resources.genji);
-            hanzo = new Shimada(new Vector (100, 100), new Vector( 10, 10), new Vector(0,0), 0, Properties.Resources.hanzo);
+            genji = new Shimada(new Vector(800, 100), new Vector (0, 0), new Vector(0,0), new Vector(0, 0), 0, 60, Properties.Resources.genji);
+            hanzo = new Shimada(new Vector(100, 100), new Vector(10, 0), new Vector(0, 0), new Vector(100, 600), 0, 40, Properties.Resources.hanzo);
+
             tmr = new Timer();
             tmr.Interval = 16; // 16 millisec = 60 frames per sec
             tmr.Tick += Tmr_Tick;
+
+            
+            
         }
 
         private void Tmr_Tick(object sender, EventArgs e)
@@ -39,11 +47,11 @@ namespace Paint1
             Vector point = hanzo.Pos - genji.Pos; // face the enemy
             double dist = point.Magnitude; // calc dist between the 2 shimadas
             List<Shimada> contacts = new List<Shimada>();
-            if (dist < 200)
+            if (dist < 400)
             {
                 contacts.Add(genji); // enemy can SEE us, so add us to the list of contacts
             }
-            hanzo.Sense(contacts);
+            hanzo.Sense(contacts); // enemy senses player
 
             // Calc genji's position by checking user input
             if(dir == Direction.Left)
@@ -68,9 +76,11 @@ namespace Paint1
                 genji.Vel.Y = 0;
             }
             genji.Move(0.1); // Have genji calculate his new position
-            hanzo.Move(0.2); // Have hanzo calc his new position in space
+            hanzo.Move(0.07); // Have hanzo calc his new position in space
             this.Invalidate(); // repaint the game
         }
+
+        
 
 
         protected override void OnPaint(PaintEventArgs e)
@@ -127,6 +137,11 @@ namespace Paint1
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void FrmMain_MouseUp(object sender, MouseEventArgs e)
+        {
+            Vector goal = new Vector(e.X, e.Y); // set a vector pointing to the mouse click position
+            genji.Goal = goal; // make hanzo's goal be the same as te onscreen mouse click position
+        }
 
         private void btnTimer_Click(object sender, EventArgs e)
         {

@@ -8,7 +8,8 @@ public class UserInfo
 {
     public UserInfo()
     {
-        
+        public string Username
+        public AdminLevel Level
         
     }
 }

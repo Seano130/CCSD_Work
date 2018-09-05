@@ -51,6 +51,7 @@
             this.Name = "FrmMain";
             this.Text = "Form1";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyUp);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseUp);
             this.ResumeLayout(false);
 
         }

@@ -11,24 +11,26 @@ namespace Paint1
     {
         public Vector Pos, Vel, Acc, Goal;
         public float Angle; // Orientation
+        public int Speed; // how fast he can move in one timer tick
         public Image Img; // Image Representing it
         protected List<Shimada> contacts = new List<Shimada>();
 
 
-        public Shimada(Vector pos, Vector vel, Vector acc, Vector goal, float angle, Image img)
+        public Shimada(Vector pos, Vector vel, Vector acc, Vector goal, float angle, int spd, Image img)
         {
             Pos = pos;
             Vel = vel;
             Acc = acc;
             Goal = goal;
             Angle = angle;
+            Speed = spd;
             Img = img;
         }
 
         public void Sense(List<Shimada> cts)
         {
 
-            contacts = cts; // make a not of who i see around me
+            contacts = cts; // make a note of who i see around me
         }
 
 
@@ -37,17 +39,15 @@ namespace Paint1
             if(contacts.Count > 0)
             {
                 Shimada enemy = contacts[0]; // get my first enemy from my list
-                Vector point = enemy.Pos - Pos; // face my enemy
-                Vector unit = point.Unitized;
-                Vel = 3 * unit; // scale up my velocity according to my speed factor of 3
+                Goal = enemy.Pos; // make the enemy's position my goal
+           
             }
-            else
-            { // I see no one to attack, so go to my goal position
+             // I see no one to attack, so go to my goal position
                 Vector point = Goal - Pos; // face my goal
                 Vector unit = point.Unitized;
-                Vel = 3 * unit; // scale up velocity
-            }
-//          Vel = Vel + Acc * time; // calc my new Velocity
+                Vel = Speed * unit; // scale up velocity
+            
+            Vel = Vel + Acc * time; // calc my new Velocity
             Pos = Pos + Vel * time; // calc my new position in space 
         }
 
