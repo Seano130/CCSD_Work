@@ -11,10 +11,10 @@ public class Product
     public string Mfg; // Manufacturer
     public string Model;
     public string Part, Description;
-    public Image Image;
+    public string Image;
 
 
-    public Product(int id, string mfg, string model, string part, string desc, Image img)
+    public Product(int id, string mfg, string model, string part, string desc, string img)
     {
         ID = id;
         Mfg = mfg;
