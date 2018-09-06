@@ -18,7 +18,7 @@
             <br />
             <br />
             <br />
-            <asp:Button ID="btnLogin" runat="server" Text="Login" />
+            <asp:Button ID="btnLogin" runat="server" Font-Bold="True" Font-Size="Large" OnClick="btnLogin_Click" Text="Login" />
         </div>
     </form>
 </body>

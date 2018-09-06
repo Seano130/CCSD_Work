@@ -35,6 +35,14 @@ public partial class Login : System.Web.UI.Page
             {
 
             }
+            else
+            {
+                Response.Write("Incorrect Password!");
+            }
+        }
+        else
+        {
+            Response.Write("Incorrect Username!");
         }
 
 
