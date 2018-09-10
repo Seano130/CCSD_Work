@@ -33,7 +33,9 @@ public partial class Login : System.Web.UI.Page
         {
             if (zenyatta.CheckPWMatches(tbUser.Text, tbPass.Text))
             {
-
+                UserInfo ui = zenyatta.GetUser(tbUser.Text);
+                Session["user"] = ui; // log them in by placing their credential into Session
+                Response.Redirect("Products.aspx");
             }
             else
             {
