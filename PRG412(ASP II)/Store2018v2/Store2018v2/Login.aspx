@@ -21,10 +21,8 @@
             <asp:Button ID="btnLogin" runat="server" Font-Bold="True" Font-Size="Large" OnClick="btnLogin_Click" Text="Login" />
             <br />
             <br />
+            <asp:Button ID="btnRegister" runat="server" Font-Bold="True" Font-Size="Large" OnClick="btnRegister_Click" Text="Register" />
             <br />
-            <asp:GridView ID="GridView2" runat="server" DataSourceID="SqlDataSource1">
-            </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
         </div>
     </form>
 </body>

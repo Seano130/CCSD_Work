@@ -21,7 +21,7 @@ public class Keymaker
     public bool CheckUserExists(string user)
     {
         bool userExists = false;
-        using (SqlConnection conn = new SqlConnection())
+        using (SqlConnection conn = new SqlConnection(connStr))
         {
 
             conn.Open();
@@ -35,8 +35,7 @@ public class Keymaker
                     {
                         // found the user...
                         userExists = true;
-                    }
-                   
+                    }                
                 }
             }
         }
@@ -99,4 +98,23 @@ public class Keymaker
         }
         return ui;
     }
+
+
+    public void CreateNewUser(UserInfo ui)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr))
+        {
+            conn.Open();
+            if (conn.State == ConnectionState.Open)
+            {
+                string query = "insert into UserInfo values ('" + ");";
+            }
+
+        }
+
+    }
+
+
+
+
 }

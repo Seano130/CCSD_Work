@@ -31,8 +31,8 @@ namespace Paint1
            | ControlStyles.UserPaint, true);
 
             UpdateStyles(); // reduces flicker for high FPS
-            genji = new Shimada(new Vector(800, 100), new Vector (0, 0), new Vector(0,0), new Vector(0, 0), 0, 60, Properties.Resources.genji);
-            hanzo = new Shimada(new Vector(100, 100), new Vector(10, 0), new Vector(0, 0), new Vector(100, 600), 0, 40, Properties.Resources.hanzo);
+            genji = new Shimada(new Vector(800, 100), new Vector (0, 0), new Vector(0, 0), 0, 60, 10, Properties.Resources.genji);
+            hanzo = new Shimada(new Vector(100, 100), new Vector(10, 0), new Vector(100, 600), 0, 40, 5, Properties.Resources.hanzo);
 
             tmr = new Timer();
             tmr.Interval = 16; // 16 millisec = 60 frames per sec
@@ -55,27 +55,27 @@ namespace Paint1
             hanzo.Sense(contacts); // enemy senses player
 
             // Calc genji's position by checking user input
-            if(dir == Direction.Left)
-            {
-                genji.Vel.X -= 5;
-            }
-            else if(dir == Direction.Right)
-            {
-                genji.Vel.X += 5;
-            }
-            else if (dir == Direction.Up)
-            {
-                genji.Vel.Y -= 5;
-            }
-            else if (dir == Direction.Down)
-            {
-                genji.Vel.Y += 5;
-            }
-            else if(dir == Direction.None)
-            {
-                genji.Vel.X = 0; // stop instantly
-                genji.Vel.Y = 0;
-            }
+            //if(dir == Direction.Left)
+            //{
+            //    genji.Vel.X -= 5;
+            //}
+            //else if(dir == Direction.Right)
+            //{
+            //    genji.Vel.X += 5;
+            //}
+            //else if (dir == Direction.Up)
+            //{
+            //    genji.Vel.Y -= 5;
+            //}
+            //else if (dir == Direction.Down)
+            //{
+            //    genji.Vel.Y += 5;
+            //}
+            //else if(dir == Direction.None)
+            //{
+            //    genji.Vel.X = 0; // stop instantly
+            //    genji.Vel.Y = 0;
+            //}
             genji.Move(0.1); // Have genji calculate his new position
             hanzo.Move(0.07); // Have hanzo calc his new position in space
             foreach(Projectile p in projectiles)
@@ -153,7 +153,7 @@ namespace Paint1
             if (e.Button == MouseButtons.Left)
             {
                 Vector goal = new Vector(e.X, e.Y); // set a vector pointing to the mouse click position
-                genji.Goal = goal; // make hanzo's goal be the same as te onscreen mouse click position
+                genji.Home = goal; // make hanzo's goal be the same as te onscreen mouse click position
             }
             else if(e.Button == MouseButtons.Right)
             { // insert shuriken launch code here...

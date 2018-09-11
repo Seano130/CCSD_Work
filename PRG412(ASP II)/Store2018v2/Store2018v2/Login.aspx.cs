@@ -46,8 +46,11 @@ public partial class Login : System.Web.UI.Page
         {
             Response.Write("Incorrect Username!");
         }
+    }
 
-
+    protected void btnRegister_Click(object sender, EventArgs e)
+    { // Phase B
+        Response.Redirect("Register.aspx"); // send them to Register Page....
     }
 
 
