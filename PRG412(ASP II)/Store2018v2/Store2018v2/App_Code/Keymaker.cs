@@ -107,7 +107,20 @@ public class Keymaker
             conn.Open();
             if (conn.State == ConnectionState.Open)
             {
-                string query = "insert into UserInfo values ('" + ");";
+                int isMale;
+                if(ui.IsMale == true)
+                {
+                    isMale = 1;
+                }
+                else
+                {
+                    isMale = 0;
+                }
+                string query = "insert into UserInfo values ('" + ui.Username + "','" + ui.Password + "','"
+                    + ui.First + "','" + ui.Last + "','" + ui.Email + "'," + "," + ui.Age + "," + isMale + ",'" + ui.Rights.ToString() + "');";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.ExecuteNonQuery(); // execute the command
             }
 
         }
