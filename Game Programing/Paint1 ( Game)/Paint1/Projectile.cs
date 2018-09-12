@@ -11,6 +11,7 @@ namespace Paint1
     {
         public Vector Pos, Vel, Acc;
         public int Speed, Damage;
+        public string Owner;
         public double Angle
         {
             get
@@ -22,14 +23,14 @@ namespace Paint1
 
         public Image Image;
 
-        public Projectile(Vector pos, Vector vel, Vector acc, int spd, int dmg, Image img)
+        public Projectile(Vector pos, Vector vel, Vector acc, int spd, int dmg, string owner, Image img)
         {
             Pos = pos;
             Vel = vel;
             Acc = acc;
             Speed = spd;
             Damage = dmg;
-           
+            Owner = owner;
             Image = img;
         }
 

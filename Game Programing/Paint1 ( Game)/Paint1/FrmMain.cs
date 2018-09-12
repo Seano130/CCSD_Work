@@ -7,17 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace Paint1
 {
     public partial class FrmMain : Form
     {
-
-        
-
-
         protected Timer tmr;
-        protected Shimada genji, hanzo;
+        protected Dictionary<string, Shimada> shimadas = new Dictionary<string, Shimada>();
         protected List<Projectile> projectiles = new List<Projectile>();
         protected Direction dir = Direction.None;
         protected int WM_KEYUP = 0x0101;
@@ -29,10 +26,13 @@ namespace Paint1
             SetStyle(ControlStyles.AllPaintingInWmPaint
            | ControlStyles.OptimizedDoubleBuffer
            | ControlStyles.UserPaint, true);
-
             UpdateStyles(); // reduces flicker for high FPS
-            genji = new Shimada(new Vector(800, 100), new Vector (0, 0), new Vector(0, 0), 0, 60, 10, Properties.Resources.genji);
-            hanzo = new Shimada(new Vector(100, 100), new Vector(10, 0), new Vector(100, 600), 0, 40, 5, Properties.Resources.hanzo);
+            WindowState = FormWindowState.Maximized;
+            Shimada genji = new Shimada(new Vector(800, 100), new Vector (0, 0), new Vector(0, 0), 0, 60, 10, Properties.Resources.genji);
+            Shimada hanzo = new Shimada(new Vector(100, 100), new Vector(10, 0), new Vector(100, 600), 0, 40, 5, Properties.Resources.hanzo);
+
+            shimadas.Add("genji",genji);
+            shimadas.Add("hanzo",hanzo);
 
             tmr = new Timer();
             tmr.Interval = 16; // 16 millisec = 60 frames per sec
@@ -45,43 +45,25 @@ namespace Paint1
         private void Tmr_Tick(object sender, EventArgs e)
         {
             //1st determine who the enemy can see within the range...
-            Vector point = hanzo.Pos - genji.Pos; // face the enemy
+            Vector point = shimadas["genji"].Pos - shimadas["hanzo"].Pos; // face the enemy
             double dist = point.Magnitude; // calc dist between the 2 shimadas
             List<Shimada> contacts = new List<Shimada>();
             if (dist < 400)
             {
-                contacts.Add(genji); // enemy can SEE us, so add us to the list of contacts
+                contacts.Add(shimadas["genji"]); // enemy can SEE us, so add us to the list of contacts
             }
-            hanzo.Sense(contacts); // enemy senses player
+            shimadas["hanzo"].Sense(contacts); // enemy senses player
 
-            // Calc genji's position by checking user input
-            //if(dir == Direction.Left)
-            //{
-            //    genji.Vel.X -= 5;
-            //}
-            //else if(dir == Direction.Right)
-            //{
-            //    genji.Vel.X += 5;
-            //}
-            //else if (dir == Direction.Up)
-            //{
-            //    genji.Vel.Y -= 5;
-            //}
-            //else if (dir == Direction.Down)
-            //{
-            //    genji.Vel.Y += 5;
-            //}
-            //else if(dir == Direction.None)
-            //{
-            //    genji.Vel.X = 0; // stop instantly
-            //    genji.Vel.Y = 0;
-            //}
-            genji.Move(0.1); // Have genji calculate his new position
-            hanzo.Move(0.07); // Have hanzo calc his new position in space
+
+            shimadas["genji"].Move(0.1); // Have genji calculate his new position
+            shimadas["hanzo"].Move(0.07); // Have hanzo calc his new position in space
             foreach(Projectile p in projectiles)
-            { 
+            { // update positions of all projectiles in the air...
                 p.Move(0.1);
             }
+
+            DetectCollisions();
+
             this.Invalidate(); // repaint the game
         }
 
@@ -90,18 +72,19 @@ namespace Paint1
             Graphics pic = e.Graphics;
             pic.Clear(Color.Gray);
 
-            pic.TranslateTransform((float)genji.Pos.X,(float) genji.Pos.Y);
-            pic.RotateTransform(genji.Angle);
-            pic.TranslateTransform(-Properties.Resources.genji.Width / 2,
-                -Properties.Resources.genji.Height / 2); // back up slightly for centering
-            pic.DrawImage(Properties.Resources.genji, new Point());
+          
 
-            pic.ResetTransform();
-            pic.TranslateTransform((float)hanzo.Pos.X, (float)hanzo.Pos.Y); // move hanzo in space
-            pic.RotateTransform(hanzo.Angle); // rotate hanzo to his orientation
-            pic.TranslateTransform(-Properties.Resources.hanzo.Width / 2,
-                -Properties.Resources.hanzo.Height / 2); // back up slightly
-            pic.DrawImage(Properties.Resources.hanzo, new Point());
+            foreach (KeyValuePair<string, Shimada> kvp in shimadas)
+            {
+                Shimada s = kvp.Value;
+                pic.TranslateTransform((float)s.Pos.X, (float)s.Pos.Y); // move genji in space
+                pic.RotateTransform(s.Angle); // rotate genji to his proper orientation
+                pic.TranslateTransform(-s.Img.Width / 2,
+                    -s.Img.Height / 2); // back up slightly for centering
+                pic.DrawImage(s.Img, new Point());
+            }
+
+          
 
             foreach (Projectile p in projectiles)
             {
@@ -153,17 +136,17 @@ namespace Paint1
             if (e.Button == MouseButtons.Left)
             {
                 Vector goal = new Vector(e.X, e.Y); // set a vector pointing to the mouse click position
-                genji.Home = goal; // make hanzo's goal be the same as te onscreen mouse click position
+                shimadas["genji"].Home = goal; // make hanzo's goal be the same as te onscreen mouse click position
             }
             else if(e.Button == MouseButtons.Right)
             { // insert shuriken launch code here...
                 Vector click = new Vector(e.X, e.Y);
-                Vector point = click - genji.Pos;
+                Vector point = click - shimadas["genji"].Pos;
                 Vector unit = point.Unitized;
                 Vector pVel = new Vector(0, 0); // start velocity at zero (not moving)
-                Vector pPos = new Vector(genji.Pos.X, genji.Pos.Y);
+                Vector pPos = new Vector(shimadas["genji"].Pos.X, shimadas["genji"].Pos.Y);
                 Vector pAcc = 60 * unit; // have shuriken ACCELERATE instead
-                Projectile p = new Projectile(pPos, pVel, pAcc, 200, 50, Properties.Resources.shuriken);
+                Projectile p = new Projectile(pPos, pVel, pAcc, 200, 50, "geni", Properties.Resources.shuriken);
                 projectiles.Add(p); 
 
 
@@ -179,6 +162,45 @@ namespace Paint1
             else
             {
                 tmr.Start();
+            }
+        }
+
+
+        protected void DetectCollisions()
+        {
+            List<int> projToDelete = new List<int>();
+            // Detect collisions between Shimadas and Projectiles
+            foreach (KeyValuePair<string, Shimada> kvp in shimadas)
+            {
+                string name = kvp.Key; // Shimada's name
+                Shimada s = kvp.Value; // Shimada object
+                foreach (Projectile p in projectiles)
+                {
+                    if(p.Owner == name)
+                    { // skip this projectile in case of friendly fire
+                        continue; // a continue statement restarts the foreach statement if encountered
+
+                    }
+                    Vector point = s.Pos - p.Pos;
+                    double dist = point.Magnitude; // get dist between their centers
+                    if(dist < s.Img.Width / 2 + p.Image.Width / 2)
+                    { // we collided, so get index of proj...
+                        int idx = projectiles.IndexOf(p);
+                        if(!projToDelete.Contains(idx))
+                        { // only add proj to delete list if not already there...
+                            projToDelete.Add(idx);
+                        }
+                       
+                    }
+                }
+            }
+
+            // Now safe to delete the projectiles that have been marked for deletion...
+            projToDelete.Sort();
+            projToDelete.Reverse();
+            foreach (int idx in projToDelete)
+            { // use the proj known to remove him from the list...
+                projectiles.RemoveAt(idx);
             }
         }
     }
