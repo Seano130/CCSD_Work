@@ -9,12 +9,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Button ID="btnShow" runat="server" OnClick="btnShow_Click" Text="Display Products" />
-            <br />
-            <br />
-            <asp:DropDownList ID="ddlProducts" runat="server">
-            </asp:DropDownList>
         </div>
+        <asp:Image ID="imgProd" runat="server" />
     </form>
 </body>
 </html>

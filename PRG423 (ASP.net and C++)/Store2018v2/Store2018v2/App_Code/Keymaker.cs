@@ -73,7 +73,7 @@ public class Keymaker
     public UserInfo GetUser(string user)
     {
         UserInfo ui = null;
-        using (SqlConnection conn = new SqlConnection())
+        using (SqlConnection conn = new SqlConnection(connStr))
         {
             conn.Open();
             if (conn.State == ConnectionState.Open)
@@ -84,7 +84,7 @@ public class Keymaker
                 {
                     if (rdr.Read() == true)
                     {
-                        string first = (string)rdr["Username"];
+                        string first = (string)rdr["First"];
                         string last = (string)rdr["Last"];
                         string email = (string)rdr["Email"];
                         int age = (int)rdr["Age"];
@@ -108,7 +108,7 @@ public class Keymaker
             conn.Open();
             if(conn.State == ConnectionState.Open)
             {
-                string query = "select * from Prodct;";
+                string query = "select * from Product;";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 using (SqlDataReader rdr = cmd.ExecuteReader())
                 {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO; // added for File manipulation
+using System.Drawing; // needd for Image thumbnail creation
 
 public partial class Products : System.Web.UI.Page
 {
@@ -30,39 +32,52 @@ public partial class Products : System.Web.UI.Page
             Response.Redirect("Login.aspx");
         }
 
-        if (!IsPostBack)
-        {// initialize the DDL for 1st time use...
-            ddlProducts.Items.Add(""); // add blank entry so that NOTHING is inistially selected
-            List<Product> allProds = zenyatta.GetAllProducts();
-            foreach (Product p in allProds)
-            {
-                ddlProducts.Items.Add(p.Model + " " + p.Part);
-            }
-        }
-        ddlProducts.Visible = false;
+        #region DDL
+        //if (!IsPostBack)
+        //{// initialize the DDL for 1st time use...
+        //    ddlProducts.Items.Add(""); // add blank entry so that NOTHING is inistially selected
+        //    List<Product> allProds = zenyatta.GetAllProducts();
+        //    foreach (Product p in allProds)
+        //    {
+        //        ddlProducts.Items.Add(p.Model + " " + p.Part);
+        //    }
+        //}
+        //ddlProducts.Visible = false;
+        #endregion
 
     }
 
-    protected void btnShow_Click(object sender, EventArgs e)
-    { // Phase B
-        // code to decide whether to show/hide the DDL
-        ddlProducts.Visible = true;
-    }
 
     protected void Page_PreRender(object sender, EventArgs e)
     { //Phase C
-        Response.Write("You made it in <br/><br/>");
+       
         UserInfo ui = (UserInfo)Session["user"]; // get out their credential from Session
         Response.Write("Welcome, " + ui.First + " " + ui.Last + "!");
-        //List<Product> allProds = zenyatta.GetAllProducts();
+
+        List<Product> allProds = zenyatta.GetAllProducts();
+        Product p = allProds[0]; // get me just the 1st Product from the DB
+        string imgFilenameDB = p.Image; // get the actual filename for this product
+        string absImgFilename = Path.Combine(Server.MapPath(""), "Images", "Products", imgFilenameDB);
+
+        System.Drawing.Image full = System.Drawing.Image.FromFile(absImgFilename);
+        System.Drawing.Image thumb = full.GetThumbnailImage(1366, 768, null, IntPtr.Zero);
+
+        string absThumbPath = Path.Combine(Server.MapPath(""),
+            "Images", "Products", "Thumbs", imgFilenameDB);
+
+        if (!File.Exists(absThumbPath))
+        {
+            thumb.Save(absThumbPath); // save the thumbnail to server HD
+        }
+        string relThumbPath = Path.Combine("Images", "Products", "Thumbs", imgFilenameDB);
+
+        imgProd.ImageUrl = relThumbPath; // point the Image control to the thumbnail
+
+
+
         //foreach(Product p in allProds)
         //{
-        //    Response.Write("<br/>" p.ID + "<br/>"
-        //        + "Mfg: " + p.Mfg + "<br/>"
-        //        + "Model: " + p.Model + "<br/>"
-        //        + "Part: " + p.Part + "<br/>"
-        //        + "Description: " + p.Description + "<br/>"
-        //        + "Image Filename: " + p.Image + "<br/><br/><br/>");
+
         //}
     }
 }
