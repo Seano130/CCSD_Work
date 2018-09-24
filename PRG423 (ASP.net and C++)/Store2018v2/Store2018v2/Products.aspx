@@ -9,8 +9,11 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:Label ID="lblTitle" runat="server" Text="Products for Sale"></asp:Label>
+            <br />
+            <br />
+            <asp:PlaceHolder ID="phMain" runat="server"></asp:PlaceHolder>
         </div>
-        <asp:Image ID="imgProd" runat="server" />
     </form>
 </body>
 </html>
