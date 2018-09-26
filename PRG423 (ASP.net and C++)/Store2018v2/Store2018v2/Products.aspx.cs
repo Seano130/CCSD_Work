@@ -63,7 +63,7 @@ public partial class Products : System.Web.UI.Page
             string absImgFilename = Path.Combine(Server.MapPath(""), "Images", "Products", imgFilenameDB);
 
             System.Drawing.Image full = System.Drawing.Image.FromFile(absImgFilename);
-            System.Drawing.Image thumb = full.GetThumbnailImage(100, 100, null, IntPtr.Zero);
+            System.Drawing.Image thumb = full.GetThumbnailImage(300, 300, null, IntPtr.Zero);
 
             string absThumbPath = Path.Combine(Server.MapPath(""),
                 "Images", "Products", "Thumbs", imgFilenameDB);
@@ -73,10 +73,11 @@ public partial class Products : System.Web.UI.Page
                 thumb.Save(absThumbPath); // save the thumbnail to server HD
             }
             string relThumbPath = Path.Combine("Images", "Products", "Thumbs", imgFilenameDB);
-            System.Web.UI.WebControls.Image imgProd = new System.Web.UI.WebControls.Image();
 
-            imgProd.ImageUrl = relThumbPath; // point the Image control to the thumbnail
-
+            ImageButton imgProd = new ImageButton(); // programatic instantiation 
+            imgProd.ImageUrl = relThumbPath; // assign it to a thumbnail
+            imgProd.ID = "img" + p.ID; // give it a name containing the unique product ID
+            imgProd.Click += ImgProd_Click;
             phMain.Controls.Add(imgProd);
 
             HtmlGenericControl br = new HtmlGenericControl("br");
@@ -97,15 +98,57 @@ public partial class Products : System.Web.UI.Page
             br = new HtmlGenericControl("br");
             phMain.Controls.Add(br);
 
-            HtmlGenericControl para = new HtmlGenericControl("p");
+            Label lblPart = new Label();
+            lblPart.Text = p.Part;
+            phMain.Controls.Add(lblPart);
+            br = new HtmlGenericControl("br");
+            phMain.Controls.Add(br);
 
+            Label lblQty = new Label();
+            lblQty.Text = "Qty:";
+            phMain.Controls.Add(lblQty);
+
+            TextBox tbQty = new TextBox();
+            tbQty.ID = "tb" + p.ID;
+            tbQty.Text = "1";
+            tbQty.Width = 20;
+            tbQty.BackColor = Color.Aqua;
+            tbQty.BorderStyle = BorderStyle.Groove;
+            tbQty.BorderWidth = 5;
+            phMain.Controls.Add(tbQty);
+
+            Button btnAddToCart = new Button();
+            btnAddToCart.ID = "btn" + p.ID;
+            btnAddToCart.Text = "Add to Cart";
+            btnAddToCart.BackColor = Color.Teal;
+            btnAddToCart.BorderStyle = BorderStyle.Inset;
+            btnAddToCart.BorderWidth = 10;
+            btnAddToCart.Click += BtnAddToCart_Click;
+            phMain.Controls.Add(btnAddToCart);
 
         }
 
 
-        //foreach(Product p in allProds)
-        //{
+    }
 
-        //}
+    private void BtnAddToCart_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        string idAsString = btn.Text.Substring(3);
+        int id = Convert.ToInt32(idAsString);
+
+        Dictionary<Product, int> chosen = new Dictionary<Product, int>();
+        chosen.Add(zenyatta.GetProductChoice(id));
+        Cart c = new Cart(chosen);
+        Session["cart"] = c;
+    }
+
+    private void ImgProd_Click(object sender, ImageClickEventArgs e)
+    {
+        ImageButton ib = (ImageButton)sender; // typecast the sender as the type that we know he is
+        string idAsString = ib.ID.Substring(3);
+        int id = Convert.ToInt32(idAsString); //convert it to an int for purposes of zenyatta looking it up
+        Session["product"] = id; // place the id into Session, so that it can be retrieved on another page
+        Response.Redirect("Detail.aspx"); // send them to a detail page
     }
 }

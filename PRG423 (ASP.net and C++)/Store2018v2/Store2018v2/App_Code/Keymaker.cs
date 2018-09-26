@@ -11,13 +11,45 @@ public class Keymaker
 {
 
     protected string connStr = @"Data Source=DESKTOP-ABPPNGK\SQLEXPRESS;Initial Catalog=Store2018;Integrated Security=True";
-
+    
+    //protected string connStr = @"Data
 
     public Keymaker()
     {
        
         
     }
+
+    public Product GetProductChoice(int id)
+    {
+        Product p = null;
+        using (SqlConnection conn = new SqlConnection(connStr))
+        {
+            conn.Open();
+            if(conn.State == ConnectionState.Open)
+            {
+                string query = "select * from Product where ID = "
+                    + id + ";";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader rdr = cmd.ExecuteReader())
+                {
+                    if (rdr.Read())
+                    {
+                        string mfg = (string)rdr["Mfg"];
+                        string model = (string)rdr["Model"];
+                        string part = (string)rdr["Part"];
+                        string desc = (string)rdr["Description"];
+                        string imgFile = (string)rdr["Image"];
+                        p = new Product(id, mfg, model, part, desc, imgFile);
+                    }
+                }
+            }
+        }
+
+        return p;
+    }
+
+
 
     public bool CheckUserExists(string user)
     {

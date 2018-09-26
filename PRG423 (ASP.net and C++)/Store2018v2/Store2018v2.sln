@@ -26,9 +26,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Store2018v2", "Store2018v2\
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEAE15F2-DD1F-4DDE-B0C0-01104ED0B2E3}"
-	ProjectSection(SolutionItems) = preProject
-		Store2018v2\Images\Products\Thumbs\flamethrower.jpg = Store2018v2\Images\Products\Thumbs\flamethrower.jpg
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
