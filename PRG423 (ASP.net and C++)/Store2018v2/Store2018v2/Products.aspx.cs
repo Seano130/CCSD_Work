@@ -134,7 +134,7 @@ public partial class Products : System.Web.UI.Page
     private void BtnAddToCart_Click(object sender, EventArgs e)
     {
         Button btn = (Button)sender;
-        string idAsString = btn.Text.Substring(3);
+        string idAsString = btn.ID.Substring(3);
         int id = Convert.ToInt32(idAsString);
 
         Dictionary<Product, int> chosen = new Dictionary<Product, int>();

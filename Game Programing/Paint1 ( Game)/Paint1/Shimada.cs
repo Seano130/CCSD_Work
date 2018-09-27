@@ -9,7 +9,8 @@ namespace Paint1
 {
     public class Shimada
     {
-        public Vector Pos, Vel, Acc, Home;
+        public Vector Pos, Vel, Home;
+        protected Vector Acc;
         public float Angle; // Orientation
         public int Speed, Acceleration; // how fast he can move in one timer tick
         public Image Img; // Image Representing it
@@ -53,13 +54,14 @@ namespace Paint1
             double distToGoal = pointToGoal.Magnitude;
             if (distToGoal > 10) // only calc if not already at my goal
             {
-                Vector point = Home - Pos;
+                Vector point = Goal - Pos;// face my goal
                 Vector unit = point.Unitized;
                 Acc = CalcAcc2(Goal);
- //               Vel = Speed * unit; // scale up velocity
+               
             }
             else
             {
+                Acc = new Vector(0, 0);
                 Vel = new Vector(0, 0);
             }
             Vel = Vel + Acc * time; // calc my new Velocity
@@ -127,6 +129,7 @@ namespace Paint1
 
         protected Vector CalcAcc2(Vector goal)
         {
+            
             Vector accDesired;
             Vector pointToGoal = goal - Pos;
             Vector unitToGoal = pointToGoal.Unitized;
