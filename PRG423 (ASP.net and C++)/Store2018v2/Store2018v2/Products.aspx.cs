@@ -126,6 +126,10 @@ public partial class Products : System.Web.UI.Page
             btnAddToCart.Click += BtnAddToCart_Click;
             phMain.Controls.Add(btnAddToCart);
 
+            Cart c = new Cart(null);
+            c.Add(new Product(123, "", "", "", "", "", 10.0));
+            c.Total = 0.0;
+
         }
 
 

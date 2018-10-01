@@ -12,9 +12,10 @@ public class Product
     public string Model;
     public string Part, Description;
     public string Image;
+    public double Price;
 
 
-    public Product(int id, string mfg, string model, string part, string desc, string img)
+    public Product(int id, string mfg, string model, string part, string desc, string img, double price)
     {
         ID = id;
         Mfg = mfg;
@@ -22,6 +23,7 @@ public class Product
         Part = part;
         Description = desc;
         Image = img;
+        Price = price;
 
 
 
