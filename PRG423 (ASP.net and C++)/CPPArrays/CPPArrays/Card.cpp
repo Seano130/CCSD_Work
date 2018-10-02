@@ -22,7 +22,7 @@ Card::Card(int idx)
 	{ // Number cards
 		Value = Index;
 		char buffer[2];
-	    _itoa_s(Index, buffer,2, 0);
+		_itoa_s(Index, buffer, 2, 0);
 		Face = buffer;
 	}
 	else if (Index == 11)
@@ -45,3 +45,34 @@ Card::Card(int idx)
 		cout << "Fire the programmer!" << endl;
 	}
 }
+
+void Card::Show()
+{
+	if (Index == 1)
+	{ // Ace
+		cout << "A" << (char)3 << endl;
+	}
+	else if (Index >= 2 && Index <= 10)
+	{ // number cards
+		cout << Index << (char)3 << endl;
+	}
+	else if (Index == 11)
+	{
+		cout << "J" << (char)3 << endl;
+	}
+	else if (Index == 12)
+	{
+		cout << "Q" << (char)3 << endl;
+	}
+	else if (Index == 13)
+	{
+		cout << "K" << (char)3 << endl;
+	}
+	else
+	{
+
+	}
+
+
+}
+
