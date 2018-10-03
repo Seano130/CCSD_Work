@@ -12,7 +12,7 @@ public class Keymaker
 
     protected string connStr = @"Data Source=DESKTOP-ABPPNGK\SQLEXPRESS;Initial Catalog=Store2018;Integrated Security=True";
     
-    //protected string connStr = @"Data
+    //protected string connStr = @"Data source = den1.mssq14.gear.host; Database=store2018;
 
     public Keymaker()
     {
@@ -40,7 +40,8 @@ public class Keymaker
                         string part = (string)rdr["Part"];
                         string desc = (string)rdr["Description"];
                         string imgFile = (string)rdr["Image"];
-                        p = new Product(id, mfg, model, part, desc, imgFile);
+                        decimal price = (decimal)rdr["Price"];
+                        p = new Product(id, mfg, model, part, desc, imgFile, price);
                     }
                 }
             }
@@ -152,7 +153,8 @@ public class Keymaker
                         string part = (string)rdr["Part"];
                         string desc = (string)rdr["Description"];
                         string imgFile = (string)rdr["Image"];
-                        Product p = new Product(id, mfg, model, part, desc, imgFile);
+                        decimal price = (decimal)rdr["Price"];
+                        Product p = new Product(id, mfg, model, part, desc, imgFile, price);
                         allProdsFound.Add(p);
                     }
                 }

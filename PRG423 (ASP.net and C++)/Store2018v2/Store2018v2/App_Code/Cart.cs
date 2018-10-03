@@ -12,13 +12,14 @@ public class Cart
         {
             // for loop to calc my total
 
-            double tot = 0.0;
+            decimal tot = 0.0M;
 
             foreach (KeyValuePair<Product, int> kvp in Items)
             {
-                double subTot = 0.0;
+                
+                decimal subTot = 0.0M;
                 Product p = kvp.Key;
-                double price = p.Price;
+                decimal price = p.Price;
                 int qty = kvp.Value;
                 subTot = price * qty;
                 tot = tot + subTot;
@@ -29,8 +30,13 @@ public class Cart
     }
     public Dictionary<Product, int> Items;
 
+    public Cart()
+    { //Instantiate a new Dictionary that is emtpy
+        Items = new Dictionary<Product, int>();
+    }
+
     public Cart(Dictionary<Product, int> prods)
-    {
+    { // create a dictionary that is filled with items passed in...
         Items = prods;
 
     }
@@ -62,7 +68,7 @@ public class Cart
         return tot;
     }
 
-    public void Change(Product p, int newQty)
+    public void ChangeQuantity(Product p, int newQty)
     {   // alter the qty of tiems in my Cart...
         if (newQty > 0)
         {

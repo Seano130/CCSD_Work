@@ -46,6 +46,11 @@ public partial class Products : System.Web.UI.Page
         //ddlProducts.Visible = false;
         #endregion
 
+        if (!IsPostBack)
+        { // only on first page load, create a brand new empty cart 
+            Cart c = new Cart();
+            Session["cart"] = c;
+        }
     }
 
 
@@ -126,9 +131,11 @@ public partial class Products : System.Web.UI.Page
             btnAddToCart.Click += BtnAddToCart_Click;
             phMain.Controls.Add(btnAddToCart);
 
-            Cart c = new Cart(null);
-            c.Add(new Product(123, "", "", "", "", "", 10.0));
-            c.Total = 0.0;
+            br = new HtmlGenericControl("br");
+            phMain.Controls.Add(br);
+            br = new HtmlGenericControl("br");
+            phMain.Controls.Add(br);
+
 
         }
 
@@ -141,10 +148,35 @@ public partial class Products : System.Web.UI.Page
         string idAsString = btn.ID.Substring(3);
         int id = Convert.ToInt32(idAsString);
 
-        Dictionary<Product, int> chosen = new Dictionary<Product, int>();
-        chosen.Add(zenyatta.GetProductChoice(id));
-        Cart c = new Cart(chosen);
-        Session["cart"] = c;
+        //Dictionary<Product, int> chosen = new Dictionary<Product, int>();
+        //chosen.Add(zenyatta.GetProductChoice(id), 1);
+
+        if(Session["cart"] != null)
+        {
+            Cart c = (Cart)Session["cart"];
+            Product p = zenyatta.GetProductChoice(id);
+            // search the list of Controls looking for the correct TextBox
+            foreach (Control ctrl in phMain.Controls)
+            { 
+                if (ctrl is TextBox)
+                { // now safe to typecast him as a Textbox...
+                    TextBox tbQty = (TextBox)ctrl;
+                    string idTBAsString = tbQty.ID.Substring(2);
+                    int idTB = Convert.ToInt32(idTBAsString);
+                    if(idTB == idProd)
+                    {
+                        string qtyAsString = tbQty.Text;
+                        int qty = Convert.ToInt32(qtyAsString);
+                        c.Add(p, qty); // finally...
+                        Session["cart"] = c;
+                    }
+
+                }
+
+            }
+            Response.Redirect("CartPage.aspx");
+        }
+        
     }
 
     private void ImgProd_Click(object sender, ImageClickEventArgs e)
