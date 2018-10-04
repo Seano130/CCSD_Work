@@ -35,6 +35,24 @@ namespace Paint1
             contacts = cts; // make a note of who i see around me
         }
 
+        public Action React(double time)
+        {
+            Action act = new Action();
+            if (contacts.Count > 0)// do I see anybody to attack?
+            {
+                Shimada enemy = contacts[0];// get my first enemy from my list
+                act.Type = ActionType.Attack;
+                act.Target = enemy.Pos;
+            }
+            else
+            {
+                act.Type = ActionType.Move;
+                act.Target = Home;
+                Move(time);
+            }
+            return act;// tell God what I decided to do...
+        }
+
 
         public void Move(double time)
         {

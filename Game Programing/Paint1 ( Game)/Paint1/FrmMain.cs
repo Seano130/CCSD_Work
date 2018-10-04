@@ -55,15 +55,34 @@ namespace Paint1
             shimadas["hanzo"].Sense(contacts); // enemy senses player
 
 
-            shimadas["genji"].Move(0.1); // Have genji calculate his new position
-            shimadas["hanzo"].Move(0.07); // Have hanzo calc his new position in space
-            foreach(Projectile p in projectiles)
+            shimadas["genji"].React(0.1); // Have genji calculate his new position
+            //shimadas["hanzo"].Move(0.07); // Have hanzo calc his new position in space
+            Action actTaken = shimadas["hanzo"].React(0.1);
+            foreach (Projectile p in projectiles)
             { // update positions of all projectiles in the air...
                 p.Move(0.1);
             }
+            Action actTaken = shimadas["genji"].React(0.1);// Have Vegeta calc his new position in space
+            if (actTaken.Type == ActionType.Attack)
+            {
+                Vector pointOfAttack = actTaken.Target - saiyans["vegeta"].Pos;
+                Vector unit = pointOfAttack.Unitized;
+                Vector pVel = new Vector(0, 0);// start velocity at zero (not moving)
+                Vector pPos = new Vector(saiyans["vegeta"].Pos.X, saiyans["vegeta"].Pos.Y);
+                Vector pAcc = 400 * unit;// have firball ACCELERATE instead
+                Animation ani = new Animation(Properties.Resources.Fireball, 256, 256, 0, 0, 6, 8, 0.5, 0.5, false);
+                Projectile p = new Projectile(pPos, pVel, pAcc, 200,
+                    50, "genji", ani);
+                projectiles.Add(p);// add this projectile to the overall list
+            }
+            foreach (Projectile p in projectiles)
+            {// update positions of all projectiles in the air...
+                p.Move(0.1);
+            }
+
+
 
             DetectCollisions();
-
             this.Invalidate(); // repaint the game
         }
 
