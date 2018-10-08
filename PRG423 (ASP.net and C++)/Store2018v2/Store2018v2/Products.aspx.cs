@@ -51,14 +51,6 @@ public partial class Products : System.Web.UI.Page
             Cart c = new Cart();
             Session["cart"] = c;
         }
-    }
-
-
-    protected void Page_PreRender(object sender, EventArgs e)
-    { //Phase C
-       
-        UserInfo ui = (UserInfo)Session["user"]; // get out their credential from Session
-        Response.Write("Welcome, " + ui.First + " " + ui.Last + "!");
 
         List<Product> allProds = zenyatta.GetAllProducts();
         foreach (Product p in allProds)
@@ -125,8 +117,8 @@ public partial class Products : System.Web.UI.Page
             Button btnAddToCart = new Button();
             btnAddToCart.ID = "btn" + p.ID;
             btnAddToCart.Text = "Add to Cart";
-            btnAddToCart.BackColor = Color.Teal;
-            btnAddToCart.BorderStyle = BorderStyle.Inset;
+          //  btnAddToCart.BackColor = Color.Teal;
+          //  btnAddToCart.BorderStyle = BorderStyle.Inset;
             btnAddToCart.BorderWidth = 10;
             btnAddToCart.Click += BtnAddToCart_Click;
             phMain.Controls.Add(btnAddToCart);
@@ -138,15 +130,23 @@ public partial class Products : System.Web.UI.Page
 
 
         }
+    }
 
 
+    protected void Page_PreRender(object sender, EventArgs e)
+    { //Phase C
+       
+        UserInfo ui = (UserInfo)Session["user"]; // get out their credential from Session
+        Response.Write("Welcome, " + ui.First + " " + ui.Last + "!");
+
+       
     }
 
     private void BtnAddToCart_Click(object sender, EventArgs e)
     {
         Button btn = (Button)sender;
         string idAsString = btn.ID.Substring(3);
-        int id = Convert.ToInt32(idAsString);
+        int idProd = Convert.ToInt32(idAsString);
 
         //Dictionary<Product, int> chosen = new Dictionary<Product, int>();
         //chosen.Add(zenyatta.GetProductChoice(id), 1);
@@ -154,7 +154,7 @@ public partial class Products : System.Web.UI.Page
         if(Session["cart"] != null)
         {
             Cart c = (Cart)Session["cart"];
-            Product p = zenyatta.GetProductChoice(id);
+            Product p = zenyatta.GetProductChoice(idProd);
             // search the list of Controls looking for the correct TextBox
             foreach (Control ctrl in phMain.Controls)
             { 
@@ -174,6 +174,7 @@ public partial class Products : System.Web.UI.Page
                 }
 
             }
+            // Temp: Del
             Response.Redirect("CartPage.aspx");
         }
         

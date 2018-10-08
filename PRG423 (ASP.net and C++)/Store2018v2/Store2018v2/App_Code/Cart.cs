@@ -6,7 +6,7 @@ using System.Web;
 
 public class Cart
 {
-    public double Total
+    public decimal Total
     {
         get
         {
@@ -59,7 +59,7 @@ public class Cart
     {
         // Remove all items from the cart...
         Items.Clear();
-        Total = 0.0;
+       
     }
 
     public double GetTotal()

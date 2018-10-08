@@ -1,0 +1,33 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Store.master.cs" Inherits="MasterPageDemo2.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <style>
+        .cssAvatar
+        {
+            float: left;
+            width: 150px;
+            height: 150px;
+            background-color: black;
+
+        }
+        .cssLogin
+        {
+            float: left;
+            
+            height: 150px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:Panel ID="pnlLogin" runat="server">
+            </asp:Panel>
+        </div>
+    </form>
+</body>
+</html>
