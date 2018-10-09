@@ -25,7 +25,8 @@ void Board::Shuffle()
 					int numRows = 1;
 					if (y > 4)
 					{
-						numRows = 2;
+						numRows = 3;
+						y-= 2;
 					}
 					ResetRow(y, numRows); // clear out all Tiles in this row
 					rolls = 0; // reset random roll counter

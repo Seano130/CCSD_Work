@@ -18,7 +18,7 @@ protected:
 	Region rgns[9];
 	int WhichRegion(int x, int y);
 	int WhichTileWithinRegion(int x, int y);
-	void ResetRow(int y);
+	void ResetRow(int rowStart, int numRows);
 
 public:
 	Board();
