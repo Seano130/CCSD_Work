@@ -46,8 +46,8 @@ public partial class Products : System.Web.UI.Page
         //ddlProducts.Visible = false;
         #endregion
 
-        if (!IsPostBack)
-        { // only on first page load, create a brand new empty cart 
+        if (Session["cart"] == null)
+        { // ONLY IF cart DOES NOT already exist, then create a brand new empty cart...
             Cart c = new Cart();
             Session["cart"] = c;
         }
@@ -167,7 +167,25 @@ public partial class Products : System.Web.UI.Page
                     {
                         string qtyAsString = tbQty.Text;
                         int qty = Convert.ToInt32(qtyAsString);
-                        c.Add(p, qty); // finally...
+                        // need a foreach to search for the product within the Cart
+                        bool found = false; // assume we can't find product in the cart until proven otherwise
+                        foreach (KeyValuePair<Product, int> kvp in c.Items)
+                        {
+                            if (kvp.Key.ID == p.ID)
+                            {
+                                found = true; // we found the item already in Cart, so flag it
+          
+                            }
+                        }
+                        if (found)
+                        {
+                            c.ChangeQuantity(p, qty); // Item already in Cart, so update QTY 
+                        }
+                        else
+                        {
+                            c.Add(p, qty); // finally...
+                        }
+                      
                         Session["cart"] = c;
                     }
 

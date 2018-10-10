@@ -70,13 +70,23 @@ public class Cart
 
     public void ChangeQuantity(Product p, int newQty)
     {   // alter the qty of tiems in my Cart...
+        Product pFromCart = null; // declare a Reference to an object in RAM
+        foreach (KeyValuePair<Product, int> kvp in Items)
+        {
+            if (kvp.Key.ID == p.ID)
+            { // found matching ID, so we found the correct Product in Cart
+                pFromCart = kvp.Key; // store Reference to the actual item in the cart
+            }
+        }
         if (newQty > 0)
         {
 
- //           if (Items.ContainsKey(p))
-            {
-                Items[p] = newQty;
-            }
+           Items[pFromCart] = newQty; // update that Product's quantity within the cart
+            
+        }
+        else
+        {
+            Items.Remove(pFromCart); // qty = 0, so simply remove this item all together
         }
 
     }

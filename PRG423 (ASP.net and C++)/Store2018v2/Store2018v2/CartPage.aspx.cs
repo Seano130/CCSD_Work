@@ -10,9 +10,22 @@ using System.Web.UI.HtmlControls; // needed for the <br/> tag in the Placeholder
 
 public partial class CartPage : System.Web.UI.Page
 {
+    protected Keymaker zenyatta
+    {
+        get
+        { // check if keymaker exists...
+            if (Session["zenyatta"] == null)
+            { // if Keymaker does NOT exist, institate him
+                Session["zenyatta"] = new Keymaker();
+
+            }
+            return (Keymaker)Session["zenyatta"];
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     { // Phase A
-        PopulatePlaceHolder();
+        PopulatePlaceHolder(); // fill the placeholder for possible future event handling below
         if (Session["cart"] != null)
         {
 
@@ -28,20 +41,51 @@ public partial class CartPage : System.Web.UI.Page
 
     protected void btnDeleteClick(object sender, EventArgs e)
     { //phase B
-        
+       
     }
 
     protected void btnChangeClick(object sender, EventArgs e)
     { //phase B
-
+        Button b = (Button)sender;
+        string idAsString = b.ID.Substring(3);
+        int idBtn = Convert.ToInt16(idAsString);
+        int id = Convert.ToInt16(idAsString);
         
+        if (Session["cart"] != null)
+        {
+            Cart c = (Cart)Session["cart"];     
+            Product p = zenyatta.GetProductChoice(idBtn);
+            foreach (Control ctrl in phMain.Controls)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox tbQty = (TextBox)ctrl;
+                    string idTBAsString = tbQty.ID.Substring(2);
+                    int idTB = Convert.ToInt16(idTBAsString);
+                    if (idTB == idBtn)
+                    {
+                        string qtyAsString = tbQty.Text;
+                        int qty = Convert.ToInt16(qtyAsString);
+                        c.ChangeQuantity(p, qty);
 
+                    }
+                }
+            }
+            
+            Session["cart"] = c; // upload updated Cart back into Session
+        }
     }
 
     protected void Page_PreRender(object sender, EventArgs e)
     { //Phase C
-        phMain.Controls.Clear(); // clear out all controls and prepare for re-population
-        PopulatePlaceHolder(); // re-populate all products from cart again
+        if (IsPostBack)
+        {
+            phMain.Controls.Clear(); // clear out all controls and prepare for re-population
+            PopulatePlaceHolder(); // re-populate all products from cart again
+        }
+        Cart c = (Cart)Session["cart"];
+        lblTotValue.Text = c.Total.ToString();
+
     }
 
     protected void PopulatePlaceHolder()
@@ -88,7 +132,7 @@ public partial class CartPage : System.Web.UI.Page
 
                 TextBox tbQty = new TextBox();
                 tbQty.ID = "tb" + p.ID;
-                tbQty.Text = "1";
+                tbQty.Text = qty.ToString(); // get the quantity of item
                 tbQty.Width = 20;
                 tbQty.BackColor = Color.Aqua;
                 tbQty.BorderStyle = BorderStyle.Groove;

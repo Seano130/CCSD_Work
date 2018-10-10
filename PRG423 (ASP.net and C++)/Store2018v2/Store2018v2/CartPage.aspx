@@ -12,11 +12,17 @@
             <asp:Label ID="lblTitle" runat="server" Font-Size="X-Large" Text="Shopping Cart"></asp:Label>
             <br />
             <br />
+            <asp:HyperLink ID="hlShopping1" runat="server" Font-Bold="True" NavigateUrl="~/Products.aspx">Continue Shopping...</asp:HyperLink>
+            <br />
+            <br />
             <asp:PlaceHolder ID="phMain" runat="server"></asp:PlaceHolder>
             <br />
             <br />
             <asp:Label ID="lblTot" runat="server" Text="Total : $"></asp:Label>
             <asp:Label ID="lblTotValue" runat="server" Text="0.0"></asp:Label>
+            0<br />
+            <br />
+            <asp:HyperLink ID="hlShopping2" runat="server" Font-Bold="True" NavigateUrl="~/Products.aspx">Continue Shopping...</asp:HyperLink>
         </div>
     </form>
 </body>
