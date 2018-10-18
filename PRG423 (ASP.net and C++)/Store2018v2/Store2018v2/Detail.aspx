@@ -25,11 +25,11 @@
             <br />
             <asp:TextBox ID="tbDesc" runat="server" Height="63px" TextMode="MultiLine" Width="334px">Description goes here</asp:TextBox>
             <br />
-            <asp:Button ID="btnProducts" runat="server" Text="Back to Products..." />
+            <asp:Button ID="btnProducts" runat="server" OnClick="btnProducts_Click" Text="Back to Products..." />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="lblQty" runat="server" Text="Qty:"></asp:Label>
-            <asp:TextBox ID="tbQty" runat="server" Width="41px"></asp:TextBox>
-            <asp:Button ID="btnAdd" runat="server" Text="Add to Cart" />
+            <asp:TextBox ID="tbQty" runat="server" Width="41px">1</asp:TextBox>
+            <asp:Button ID="btnAdd" runat="server" OnClick="btnAdd_Click" Text="Add to Cart" />
         </div>
     </form>
 </body>
