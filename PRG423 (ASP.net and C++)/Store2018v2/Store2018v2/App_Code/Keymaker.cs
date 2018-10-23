@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Data;
+using System.Drawing;
+using System.IO;
 
 
 
@@ -12,12 +14,35 @@ public class Keymaker
 
     protected string connStr = @"Data Source=DESKTOP-ABPPNGK\SQLEXPRESS;Initial Catalog=Store2018;Integrated Security=True";
     
-    //protected string connStr = @"Data source = den1.mssq14.gear.host; Database=store2018;
-
+    //protected string connStr = @"Data source = den1.mssq14.gear.host; Database=store2018; User ID=Store2018; Password ";
     public Keymaker()
     {
        
         
+    }
+
+    public bool AddProduct(Product newP)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr)) // USING statement properlly disposes of objects that are related to resources once the connection is closed
+        {
+            conn.Open();
+            if (conn.State == ConnectionState.Open)
+            {
+                string query = "select ID from Product where " + newP.ID.ToString() + ";";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader rdr = cmd.ExecuteReader())
+                {
+                    if (rdr.Read())
+                    { // we already HAVE this ID in DB
+                        
+                        return false;
+                    }
+                }
+                query = "insert into Products values (" + newP.ID.ToString() + ", '" + newP.Mfg + "','" + newP.Mfg
+                    + "','" + newP.Model + "','" + "','" + newP.Part + "','" + newP.Description + "','" + newP.Image
+                    + "'," + newP.Price + ");";
+            }
+        }
     }
 
     public Product GetProductChoice(int id)

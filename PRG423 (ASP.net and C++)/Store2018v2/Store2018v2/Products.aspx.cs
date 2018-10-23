@@ -188,14 +188,11 @@ public partial class Products : System.Web.UI.Page
                       
                         Session["cart"] = c;
                     }
-
                 }
-
             }
             // Temp: Del
             Response.Redirect("CartPage.aspx");
         }
-        
     }
 
     private void ImgProd_Click(object sender, ImageClickEventArgs e)
