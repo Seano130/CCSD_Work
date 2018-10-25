@@ -41,8 +41,13 @@ public class Keymaker
                 query = "insert into Products values (" + newP.ID.ToString() + ", '" + newP.Mfg + "','" + newP.Mfg
                     + "','" + newP.Model + "','" + "','" + newP.Part + "','" + newP.Description + "','" + newP.Image
                     + "'," + newP.Price + ");";
+
+                cmd = new SqlCommand();
             }
+            
         }
+        return true;
+
     }
 
     public Product GetProductChoice(int id)

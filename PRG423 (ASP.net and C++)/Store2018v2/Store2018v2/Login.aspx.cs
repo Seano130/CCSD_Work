@@ -23,7 +23,9 @@ public partial class Login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     { // Phase A
-
+        UserInfo ui = new UserInfo("Admin", "ccsd", "The", "Boss", "", 40, true, AdminRights.Owner);
+        Session["user"] = ui;
+        Response.Redirect("MgmtCreate.aspx");
 
     }
 
