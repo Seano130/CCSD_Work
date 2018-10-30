@@ -43,6 +43,7 @@
             <asp:Button ID="btnPreview" runat="server" Text="Preview..." OnClick="btnPreview_Click" />
             <br />
             <br />
+            <asp:Label ID="lblPreview" runat="server"></asp:Label>
             <br />
             <asp:Image ID="imgPreview" runat="server" Height="452px" Width="772px" />
         </div>

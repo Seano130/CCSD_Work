@@ -43,6 +43,7 @@ public partial class MgmtCreate : System.Web.UI.Page
         }
         btnAddProduct.Visible = false; // Hide add product btn until its needed
         imgPreview.Visible = false; // Hide image ctrl until needed...
+        lblPreview.Visible = false;
     }
 
     protected void btnPreview_Click(object sender, EventArgs e)
@@ -55,7 +56,11 @@ public partial class MgmtCreate : System.Web.UI.Page
             if (extsAllowed.Contains(fi.Extension))
             {
                 string absTempImgPath = Path.Combine(Server.MapPath(""), "Images", fuImage.FileName);
-                fuImage.SaveAs(absTempImgPath); // upload and save selected file
+                if (!File.Exists(absTempImgPath))
+                {
+                    fuImage.SaveAs(absTempImgPath); // upload and save selected file
+                }
+                
                 string relTempPath = Path.Combine("Images", fuImage.FileName);
                 imgPreview.ImageUrl = relTempPath;
                 // load img into Server RAM to get Width/Height info...
@@ -74,10 +79,64 @@ public partial class MgmtCreate : System.Web.UI.Page
 
     protected void btnAddProduct_Click(object sender, EventArgs e)
     { // Phase B
+        bool uselessFlag = CheckInfoFilledOut();
 
+        if (uselessFlag == true)
+        { // only now, can we build a prodict object and send it into the DB...
+            int id;
+            decimal price = 0.0M;
+            try
+            {
+                id = Convert.ToInt16(tbID.Text);
+            }
+            catch
+            {
+                id = -666;
+            }
+
+            if (id != -666)
+            {
+                string absImagePath = Path.Combine(Server.MapPath(""), imgPreview.ImageUrl);
+                FileInfo fi = new FileInfo(absImagePath); // get Just the img filename, not the subfolder
+                Product p = new Product(id, tbMfr.Text, tbModel.Text, tbPart.Text, tbDesc.Text, imgPreview.ImageUrl, price);
+                if (zenyatta.AddProduct(p))
+                {
+                    Response.Write("New Product added!");
+                }
+                else
+                {
+                    Response.Write("Sorry, Product ID is already in DB");
+                }
+            }
+        }
+        else
+        {
+            Response.Write("Please fill in all fields");
+        }
 
     }
 
+    private bool CheckInfoFilledOut()
+    {
+        bool uselessFlag = true;
+        foreach (Control ctrl in divMain.Controls)
+        {
+            if (ctrl is TextBox)
+            {
+                TextBox tb = (TextBox)ctrl;
+                if (tb.Text.Length == 0)
+                {
+                    uselessFlag = false;
+                }
+            }
+        }
+        if (imgPreview.ImageUrl.Length == 0)
+        {
+            uselessFlag = false;
+        }
+
+        return uselessFlag;
+    }
 
     protected void Page_PreRender(object sender, EventArgs e)
     { //Phase C
@@ -87,9 +146,17 @@ public partial class MgmtCreate : System.Web.UI.Page
             if (imgPreview.ImageUrl != "")
             {
                 imgPreview.Visible = true; // SEEMS like the right thing to do
+                string absImagePath = Path.Combine(Server.MapPath(""), imgPreview.ImageUrl);
+                FileInfo fi = new FileInfo(absImagePath);
+                lblPreview.Text = fi.Name;
+                lblPreview.Visible = true;
             }
 
         }
+
+        // Now, only show btnAddProduct if all info is filled out...
+        btnAddProduct.Visible = CheckInfoFilledOut();
+        
 
     }
 }
