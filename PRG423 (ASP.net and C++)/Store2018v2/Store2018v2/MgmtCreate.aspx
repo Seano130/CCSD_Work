@@ -8,7 +8,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div runat ="server" id="divMain">
+
             <asp:Label ID="lblTitle" runat="server" Font-Bold="True" Font-Size="XX-Large" ForeColor="#00CC00" Text="Management Create New Products"></asp:Label>
             <br />
             <br />
@@ -47,6 +48,10 @@
             <br />
             <asp:Image ID="imgPreview" runat="server" Height="452px" Width="772px" />
         </div>
+        <br />
+        <asp:Label ID="lblMsg" runat="server" Font-Size="Large" ForeColor="Red" Text="C++ Sux"></asp:Label>
+        <br />
+        <br />
         <asp:Button ID="btnAddProduct" runat="server" OnClick="btnAddProduct_Click" Text="Add Product" />
     </form>
 </body>

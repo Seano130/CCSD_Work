@@ -9,6 +9,7 @@ using System.Drawing;
 
 public partial class MgmtCreate : System.Web.UI.Page
 {
+    protected bool anotherUselessFlag = false; // indicates visibility of the lblMsg to user
     protected Keymaker zenyatta
     {
         get
@@ -101,18 +102,23 @@ public partial class MgmtCreate : System.Web.UI.Page
                 Product p = new Product(id, tbMfr.Text, tbModel.Text, tbPart.Text, tbDesc.Text, imgPreview.ImageUrl, price);
                 if (zenyatta.AddProduct(p))
                 {
-                    Response.Write("New Product added!");
+                    lblMsg.Text = "New Product added!";
                 }
                 else
                 {
-                    Response.Write("Sorry, Product ID is already in DB");
+                    lblMsg.Text = "Sorry, Product ID is already in DB";
                 }
+            }
+            else
+            {
+                lblMsg.Text = "Require Alphabetical entry";
             }
         }
         else
         {
-            Response.Write("Please fill in all fields");
+            lblMsg.Text = "Please fill in all fields";
         }
+        anotherUselessFlag = true; // show the lblMsg later by indicating flag...
 
     }
 
@@ -156,6 +162,12 @@ public partial class MgmtCreate : System.Web.UI.Page
 
         // Now, only show btnAddProduct if all info is filled out...
         btnAddProduct.Visible = CheckInfoFilledOut();
+
+       
+        //only show Msg to user if the flag was set earlier in Phases A or B...
+        lblMsg.Visible = anotherUselessFlag;
+
+        
         
 
     }
