@@ -45,6 +45,19 @@ public partial class MgmtCreate : System.Web.UI.Page
         btnAddProduct.Visible = false; // Hide add product btn until its needed
         imgPreview.Visible = false; // Hide image ctrl until needed...
         lblPreview.Visible = false;
+        lblMsg.Visible = false;
+        if (!IsPostBack)
+        {
+            // Session var = true means Create Page is shown...
+            Session["!IsNotSuperLongSessionVariableName"] = true;
+            //populate DDL for 1st time use...
+            List<Product> products = zenyatta.GetAllProducts();
+            ddlID.Items.Add("");
+            foreach (Product p in products)
+            {
+                ddlID.Items.Add(p.ID.ToString()); // add this Product's ID to DropDownList
+            }
+        }
     }
 
     protected void btnPreview_Click(object sender, EventArgs e)
@@ -122,6 +135,32 @@ public partial class MgmtCreate : System.Web.UI.Page
 
     }
 
+    protected void btnMode_Click(object sender, EventArgs e)
+    { //Phase B
+        Session["!IsNotSuperLongSessionVariableName"] = (!(bool)Session["!IsNotSuperLongSessionVariableName"]);
+
+    }
+
+    protected void ddlID_SelectedIndexChanged(object sender, EventArgs e)
+    { // Phase B
+        if (ddlID.SelectedIndex > 0)
+        {// Only fill in Product info if an actual item was selected (selectedIndex > 0)
+
+            string idAsString = ddlID.SelectedValue; // get text selected in DDL by the user
+            int id = Convert.ToInt16(idAsString); // convert to an int
+            Product p = zenyatta.GetProductChoice(id);
+            tbMfr.Text = p.Mfg;
+            tbModel.Text = p.Model;
+            tbPart.Text = p.Part;
+            tbPrice.Text = p.Price.ToString();
+            tbDesc.Text = p.Description;
+            string imgFilename = p.Image;
+            string relImagePath = Path.Combine("Images", "Products", imgFilename); // build rel path to the image
+            imgPreview.ImageUrl = relImagePath; // install rel path into imgControl so it can display
+        }
+
+    }
+
     private bool CheckInfoFilledOut()
     {
         bool uselessFlag = true;
@@ -167,8 +206,28 @@ public partial class MgmtCreate : System.Web.UI.Page
         //only show Msg to user if the flag was set earlier in Phases A or B...
         lblMsg.Visible = anotherUselessFlag;
 
-        
-        
+        bool modeIsCreate = (bool)Session["!IsNotSuperLongSessionVariableName"];
 
+        tbID.Visible = modeIsCreate;
+        ddlID.Visible = !modeIsCreate;
+        fuImage.Visible = true;
+        btnPreview.Visible = true;
+        btnAddProduct.Visible = modeIsCreate;
+        btnUpdateProduct.Visible = !modeIsCreate;
+
+        if(modeIsCreate == true)
+        {
+            btnMode.Text = "View/Update Mode";
+            lblTitle.Text = "Create New Products";
+        }
+        else
+        {
+            btnMode.Text = "Create Mode";
+            lblTitle.Text = "View/Update Products";
+        }
     }
+
+
+
+   
 }

@@ -10,12 +10,19 @@
     <form id="form1" runat="server">
         <div runat ="server" id="divMain">
 
-            <asp:Label ID="lblTitle" runat="server" Font-Bold="True" Font-Size="XX-Large" ForeColor="#00CC00" Text="Management Create New Products"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" Font-Bold="True" Font-Size="XX-Large" ForeColor="#00CC00" Text="Secret Label"></asp:Label>
+            <br />
+            <br />
+            <asp:Button ID="btnMode" runat="server" OnClick="btnMode_Click" Text="Put current Mode here" />
+            <br />
             <br />
             <br />
             <asp:Label ID="lblID" runat="server" Text="ID"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="tbID" runat="server"></asp:TextBox>
+            <asp:DropDownList ID="ddlID" runat="server" AutoPostBack="True">
+            </asp:DropDownList>
+            <br />
             <br />
             <br />
             <asp:Label ID="lblMfr" runat="server" Text="Manufacturer"></asp:Label>
@@ -53,6 +60,7 @@
         <br />
         <br />
         <asp:Button ID="btnAddProduct" runat="server" OnClick="btnAddProduct_Click" Text="Add Product" />
+        <asp:Button ID="btnUpdateProduct" runat="server" Text="Update..." />
     </form>
 </body>
 </html>
