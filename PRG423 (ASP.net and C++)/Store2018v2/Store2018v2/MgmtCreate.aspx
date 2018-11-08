@@ -20,7 +20,7 @@
             <asp:Label ID="lblID" runat="server" Text="ID"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="tbID" runat="server"></asp:TextBox>
-            <asp:DropDownList ID="ddlID" runat="server" AutoPostBack="True">
+            <asp:DropDownList ID="ddlID" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlID_SelectedIndexChanged">
             </asp:DropDownList>
             <br />
             <br />
@@ -60,7 +60,7 @@
         <br />
         <br />
         <asp:Button ID="btnAddProduct" runat="server" OnClick="btnAddProduct_Click" Text="Add Product" />
-        <asp:Button ID="btnUpdateProduct" runat="server" Text="Update..." />
+        <asp:Button ID="btnUpdateProduct" runat="server" Text="Update..." OnClick="btnUpdateProduct_Click" />
     </form>
 </body>
 </html>

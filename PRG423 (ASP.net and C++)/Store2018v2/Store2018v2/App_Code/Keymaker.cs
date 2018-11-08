@@ -50,6 +50,30 @@ public class Keymaker
 
     }
 
+    public bool UpdateProduct(Product newP)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr))
+        {
+            conn.Open();
+            if(conn.State == ConnectionState.Open)
+            {
+                string query = "Update Product Set Mfr = '" + newP.Mfg
+                    + "',Model = '" + newP.Model
+                    + "',Part = '" + newP.Part
+                    + "',Description = '" + newP.Description
+                    + "', Image = '" + newP.Image
+                    + "', Price = " + newP.Price
+                    + "' ID = " + newP.ID + ";";
+
+
+
+
+
+            }
+        }
+    }
+
+
     public Product GetProductChoice(int id)
     {
         Product p = null;

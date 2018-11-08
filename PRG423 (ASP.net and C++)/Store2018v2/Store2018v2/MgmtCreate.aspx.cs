@@ -135,6 +135,54 @@ public partial class MgmtCreate : System.Web.UI.Page
 
     }
 
+    protected void btnUpdateProduct_Click(object sender, EventArgs e)
+    { //Phase B
+         bool uselessFlag = CheckInfoFilledOut();
+
+        if (uselessFlag == true)
+        { // only now, can we build a prodict object and send it into the DB...
+            int id = Convert.ToInt16(ddlID.SelectedValue);
+            decimal price = 0.0M;
+            try
+            {
+                
+                price = Convert.ToDecimal(tbPrice.Text);
+            }
+            catch
+            {
+                id = -666; // Product value that no product could have (meant to fail)
+            }
+
+            if (id != -666)
+            {
+
+                Product oldProduct = zenyatta.GetProductChoice(id);
+                string oldImageFilename = oldProduct.Image;
+
+                Product p = new Product(id, tbMfr.Text, tbModel.Text, tbPart.Text, tbDesc.Text, imgPreview.ImageUrl, price);
+                if (zenyatta.AddProduct(p))
+                {
+                    lblMsg.Text = "New Product added!";
+                }
+                else
+                {
+                    lblMsg.Text = "Sorry, Product ID is already in DB";
+                }
+            }
+            else
+            {
+                lblMsg.Text = "Requires a valid Price!";
+            }
+        }
+        else
+        {
+            lblMsg.Text = "Please fill in all fields";
+        }
+        anotherUselessFlag = true; // show the lblMsg later by indicating flag...
+
+
+    }
+
     protected void btnMode_Click(object sender, EventArgs e)
     { //Phase B
         Session["!IsNotSuperLongSessionVariableName"] = (!(bool)Session["!IsNotSuperLongSessionVariableName"]);
@@ -161,6 +209,8 @@ public partial class MgmtCreate : System.Web.UI.Page
 
     }
 
+   
+
     private bool CheckInfoFilledOut()
     {
         bool uselessFlag = true;
@@ -185,19 +235,7 @@ public partial class MgmtCreate : System.Web.UI.Page
 
     protected void Page_PreRender(object sender, EventArgs e)
     { //Phase C
-        if (fuImage.HasFile)
-        {
-
-            if (imgPreview.ImageUrl != "")
-            {
-                imgPreview.Visible = true; // SEEMS like the right thing to do
-                string absImagePath = Path.Combine(Server.MapPath(""), imgPreview.ImageUrl);
-                FileInfo fi = new FileInfo(absImagePath);
-                lblPreview.Text = fi.Name;
-                lblPreview.Visible = true;
-            }
-
-        }
+        
 
         // Now, only show btnAddProduct if all info is filled out...
         btnAddProduct.Visible = CheckInfoFilledOut();
@@ -219,15 +257,33 @@ public partial class MgmtCreate : System.Web.UI.Page
         {
             btnMode.Text = "View/Update Mode";
             lblTitle.Text = "Create New Products";
+            if (fuImage.HasFile)
+            {
+
+                if (imgPreview.ImageUrl != "")
+                {
+                    imgPreview.Visible = true; // SEEMS like the right thing to do
+                    string absImagePath = Path.Combine(Server.MapPath(""), imgPreview.ImageUrl);
+                    FileInfo fi = new FileInfo(absImagePath);
+                    lblPreview.Text = fi.Name;
+                    lblPreview.Visible = true;
+                }
+
+            }
         }
         else
         {
+            imgPreview.Visible = true;
             btnMode.Text = "Create Mode";
             lblTitle.Text = "View/Update Products";
+            if(ddlID.SelectedIndex > 0) 
+            { // only shows the Image if something selected AND image actually loaded in the DDL
+               
+                    imgPreview.Visible = true;
+                
+            }
         }
     }
 
-
-
-   
+    
 }
