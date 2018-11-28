@@ -21,7 +21,7 @@ namespace Utilities
 
     public enum ResourceType
     {
-
+        Gold, Food, Wood
     }
 
     public struct Action

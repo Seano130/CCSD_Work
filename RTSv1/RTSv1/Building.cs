@@ -11,7 +11,7 @@ namespace RTSv1
     public class Building : ILocateable
     {
         public BuildingType Type;
-
+        public List<IMob> InQueue;
 
         public string Name { get;  set; } // implement Name by storing with hidden backing variable
         public Vector Pos { get; set; }

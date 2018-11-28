@@ -11,12 +11,12 @@ namespace RTSv1
     {
         Vector Vel { get; set; }
         Vector Acc { get; set; }
+        Decision Mode;
         int Speed { get; set; }
         int Attack { get; set; }
         int AC { get; set; }
         int HousingCost { get; set; }
-        int 
-        
+               
 
     }
 }

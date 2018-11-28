@@ -52,6 +52,12 @@ namespace Utilities
             }
         }
 
+        public Image GetFrame(int idx)
+        {
+            // Someone has requests a specific frame, so give it to them
+            return frames[idx];
+        }
+
         public Animation(Image spriteMap, int width, int height, int xStart, int yStart, int rows, int cols, double scale, double speed, bool continuous)
         {
             Continuous = continuous;

@@ -7,12 +7,11 @@ using System.Drawing; // Logical reference to Image class inside system
 
 namespace Utilities
 {
-    interface ILocatable
+    public interface ILocateable
     {
         string Name { get; set; }
         Vector Pos { get; set; }
-        Vector Vel { get; set; }
-        Vector Acc { get; set; }
+       
         int HP { get; set; }
         Image Img { get; }
         int Height { get; }
