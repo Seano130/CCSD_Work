@@ -11,11 +11,14 @@ namespace RTSv1
     {
         Vector Vel { get; set; }
         Vector Acc { get; set; }
-        Decision Mode;
+        Decision Mode { get; set; }
         int Speed { get; set; }
         int Attack { get; set; }
         int AC { get; set; }
         int HousingCost { get; set; }
+        
+
+        Decision Decide(List<ILocateable> whatICanSeeNow, List<ILocateable> map);
                
 
     }
