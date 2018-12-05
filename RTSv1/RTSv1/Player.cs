@@ -9,8 +9,8 @@ namespace RTSv1
 {
     public class Player
     {
-        protected List<IMob> mobs = new List<IMob>(); // every mob in the game
-        protected List<Building> buildings = new List<Building>(); // every building the player has bought
+        public List<IMob> Mobs = new List<IMob>(); // every mob in the game
+        public List<Building> Buildings = new List<Building>(); // every building the player has bought
         public string TeamName;
     }
 }

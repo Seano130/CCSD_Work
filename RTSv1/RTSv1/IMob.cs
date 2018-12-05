@@ -7,7 +7,7 @@ using Utilities;
 
 namespace RTSv1
 {
-    public interface IMob
+    public interface IMob : ILocateable
     {
         Vector Vel { get; set; }
         Vector Acc { get; set; }
@@ -16,9 +16,10 @@ namespace RTSv1
         int Attack { get; set; }
         int AC { get; set; }
         int HousingCost { get; set; }
+        int SightRange { get; set; }
         
 
-        Decision Decide(List<ILocateable> whatICanSeeNow, List<ILocateable> map);
+        Utilities.Action Decide(List<ILocateable> whatICanSeeNow, List<ILocateable> map);
                
 
     }
